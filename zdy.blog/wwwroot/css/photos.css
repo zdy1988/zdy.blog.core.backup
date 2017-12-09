@@ -1,0 +1,62 @@
+﻿.photos-list {
+    list-style: none;
+    padding: 0px;
+    margin: 0 -6px;
+    display: inline-block;
+}
+
+.photos-list-item {
+    float: left;
+    margin: 5px;
+}
+
+    .photos-list-item:nth-child(1) {
+        margin-left: 0px;
+    }
+
+    .photos-list-item:nth-child(even) {
+        margin-top: 30px;
+    }
+
+    .photos-list-item:nth-child(3n) {
+        margin-left: 20px;
+    }
+
+    .photos-list-item img {
+        border: 7px solid #fff;
+        cursor: pointer;
+        position: relative;
+        -moz-box-shadow: 1px 1px 1px #aaa;
+        -webkit-box-shadow: 1px 1px 1px #aaa;
+        box-shadow: 1px 1px 1px #aaa;
+    }
+
+        .photos-list-item img:hover {
+            -moz-box-shadow: 1px 1px 7px #777;
+            -webkit-box-shadow: 1px 1px 7px #777;
+            box-shadow: 1px 1px 7px #777;
+        }
+
+    .photos-list-item .photo-remove {
+        padding: 4px 6px;
+    }
+
+    .photos-list-item:nth-child(even) img {
+        height: 75px;
+    }
+
+    .photos-list-item:nth-child(odd) img {
+        height: 150px;
+    }
+
+    .photos-list-item:nth-child(4n) img {
+        height: 120px;
+    }
+
+    .photos-list-item:nth-child(5n) img {
+        height: 180px;
+    }
+
+    .photos-list-item:nth-child(6n) img {
+        height: 75px;
+    }

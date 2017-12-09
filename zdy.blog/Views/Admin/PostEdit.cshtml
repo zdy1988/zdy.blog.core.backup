@@ -1,0 +1,64 @@
+﻿@model Zdy.Blog.Data.Models.Post
+
+<article class="post">
+    <header class="post-head">
+        <h1 class="post-title">
+            <a href="javascript:;">
+                Post
+            </a>
+        </h1>
+    </header>
+    <div class="post-main echo">
+        <form role="form" id="post-form" class="comments-form" asp-controller="Admin" asp-action="PostUpdate">
+            <div class="form-group">
+                <div>
+                    <input asp-for="ID" type="hidden"/>
+                    <label asp-for="Title" class="control-label">Title</label>
+                    <input asp-for="Title" class="form-control" type="text" placeholder="Title" required="">
+                </div>
+                <div>
+                    <label asp-for="Slug" class="control-label">Slug</label>
+                    <input asp-for="Slug" class="form-control" type="text" placeholder="Slug" required="">
+                </div>
+                <div>
+                    <label asp-for="Categories" class="control-label">Categories</label>
+                    <input asp-for="Categories" class="form-control" type="text" placeholder="Categories">
+                </div>
+                <div>
+                    <label asp-for="PubDate" class="control-label">PubDate</label>
+                    <input asp-for="PubDate" class="form-control" type="datetime-local" placeholder="PubDate" required="">
+                </div>
+                @*<div>
+                    <label asp-for="Excerpt" class="control-label">Excerpt</label>
+                    <input asp-for="Excerpt" class="form-control" type="text" placeholder="Excerpt">
+                </div>*@
+                <div>
+                    <label asp-for="IsPublished" class="control-label">Is published</label>
+                    <div>
+                        <input asp-for="IsPublished" class="checkbox" />
+                    </div>
+                </div>
+                <div>
+                    <label asp-for="Content" class="control-label">Content</label>
+                    <div>
+                        <textarea asp-for="Content" class="form-control post-markdown" placeholder="Content" required=""></textarea>
+                        <div id="html-preview" class="post-markdown"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="form-action">
+                <button class="btn btn-primary" type="button" id="upload">Image</button>
+                <button class="btn btn-primary u-fr" type="submit">Post</button>
+                @if (Model.ID != Guid.Empty)
+                {
+                    <button class="btn btn-link u-fr post-remove" style="color:red" type="button" data-id="@Model.ID">remove</button>
+                }
+            </div>
+        </form>
+        <input type="file" multiple="multiple" id="files" data-type="post" style="position: absolute;left: -1000px;top: 0px;" />
+    </div>
+    @if (Model.ID != null)
+    {
+        await Html.RenderPartialAsync("_Comments", Model.ID);
+    }
+</article>

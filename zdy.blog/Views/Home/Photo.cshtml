@@ -1,0 +1,69 @@
+﻿@using Zdy.Blog.Data.Models
+@model Zdy.Blog.Data.Models.Gallery
+@inject Zdy.Blog.Services.IRepository _repository
+@addTagHelper "Zdy.Blog.TagExtends.PagerTagHelper,Zdy.Blog"
+@{
+    ViewData["Title"] = Model.Title;
+    var gallery = Model;
+}
+
+<article class="post">
+    <header class="post-head">
+        <time datetime="@gallery.PubDate" class="post-time">
+            @gallery.PubDate.ToString("MMMM dd，yyyy")
+        </time>
+        <h1 class="post-title">
+            <a href="/photo/@gallery.Slug">
+                @gallery.Title
+            </a>
+        </h1>
+    </header>
+
+    <div class="post-main">
+        <ul class="photos-list">
+            @{
+                var photos = await _repository.FindAsync<Photo>(t => t.SourceID == gallery.ID);
+            }
+            @foreach (var photo in photos.OrderByDescending(t => t.PubDate))
+            {
+                var photoUrl = $"/upload/gallery/{gallery.ID}/{photo.FileName}";
+                <li class="photos-list-item">
+                    <a href="@photoUrl" class="fancybox" data-fancybox="gallery">
+                        <img class="lazy" data-original="@photoUrl">
+                    </a>
+                </li>
+            }
+        </ul>
+    </div>
+
+    <footer class="post-foot u-cf">
+        @{
+            if (!string.IsNullOrEmpty(gallery.Categories))
+            {
+                var categories = gallery.Categories.Split(',');
+
+                <ul class="post-tag u-fl">
+                    @foreach (var category in categories)
+                    {
+                        <li class="post-tag-item">
+                            <a href="/search2/@category" class="post-tag-link">
+                                @category
+                            </a>
+                        </li>
+                    }
+                </ul>
+            }
+        }
+
+        @{
+            int cc = await _repository.CountAsync<Comment>(t => t.IsApproved && t.SourceID == gallery.ID);
+        }
+
+        <a href="/photo/@gallery.Slug#post-comments" class="post-foot-link u-fr">@cc COMMENTS</a>
+    </footer>
+</article>
+
+@if (Model.ID != null)
+{
+    await Html.RenderPartialAsync("_CommentsForm", Model.ID);
+}

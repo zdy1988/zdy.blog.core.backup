@@ -1,0 +1,32 @@
+﻿@using Zdy.Blog.Data.Models
+@model  Tuple<IEnumerable<Comment>, int, int>
+@inject Microsoft.Extensions.Configuration.IConfiguration _config
+@addTagHelper "Zdy.Blog.TagExtends.PagerTagHelper,Zdy.Blog"
+@{
+    Layout = null;
+}
+
+<div id="comments-list" class="comments-list">
+    @if (Model.Item1.Count() > 0)
+    {
+        @foreach (var comment in Model.Item1)
+        {
+            await Html.RenderPartialAsync("_CommentsItem", comment);
+        }
+    }
+    else
+    {
+        <div id="comments-tips">If so, post a comment and let us know how you like it.</div>
+    }
+</div>
+
+@{
+    var PagerOption = new Zdy.Blog.TagExtends.PagerOption
+    {
+        PageIndex = Model.Item3,
+        PageSize = int.Parse(_config["blog:pageSize"]),
+        RouteUrl = "#",
+        TotalCount = Model.Item2
+    };
+}
+<pager pager-option="@PagerOption"></pager>

@@ -1,0 +1,24 @@
+﻿@model Zdy.Blog.Data.Models.Comment
+@using Zdy.Blog.TagExtends
+@addTagHelper "Zdy.Blog.TagExtends.MarkdownTagHelper,Zdy.Blog"
+@{
+    Layout = null;
+}
+<article class="comments-list-item" itemscope="" itemtype="http://schema.org/UserComments" itemprop="comment" data-source="@Model.SourceID">
+    <img src="/images/visitor.jpg" class="comments-visitor" alt="Comment by @Model.Author">
+    <div class="comments-content">
+        <button class="btn btn-link">@Model.Author</button>
+        <time datetime="@Model.PubDate" itemprop="commentTime">@Model.PubDate.ToString("MMMM dd，yyyy")</time>
+        <div itemprop="commentText">
+            @{
+                var markdownOption = new MarkdownOption
+                {
+                    StringContent = Model.Content
+                };
+            }
+
+            <markdown markdown-option="@markdownOption"></markdown>
+
+        </div>
+    </div>
+</article>

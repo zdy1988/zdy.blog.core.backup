@@ -1,0 +1,42 @@
+﻿@model IEnumerable<Zdy.Blog.Data.Models.Gallery>
+@addTagHelper "Zdy.Blog.TagExtends.PagerTagHelper,Zdy.Blog"
+
+<article class="post">
+    <header class="post-head">
+        <h1 class="post-title">
+            <a href="javascript:;">
+                Gallery List
+            </a>
+        </h1>
+    </header>
+    <div class="post-main echo">
+        <div class="admin-list">
+            @foreach (var gallery in Model)
+            {
+                <article class="admin-list-item" itemscope="" itemtype="http://schema.org/Post" itemprop="admin">
+                    <div class="admin-content">
+                        <button class="btn btn-link">@gallery.IsPublished</button>
+                        <time datetime="@gallery.PubDate" itemprop="adminTime">@gallery.PubDate</time>
+                        <p itemprop="adminText">
+                            <a href="/admin/galleryedit/@gallery.ID">@gallery.Title</a>
+                        </p>
+                        @{
+                            if (!string.IsNullOrEmpty(gallery.Categories))
+                            {
+                                var categories = gallery.Categories.Split(',');
+                                foreach (var category in categories)
+                                {
+                                    <button class="btn btn-link">#@category</button>
+                                }
+                            }
+                        }
+                    </div>
+                </article>
+                            }
+        </div>
+
+        <pager pager-option="@ViewBag.PagerOption"></pager>
+
+    </div>
+</article>
+

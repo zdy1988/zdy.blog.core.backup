@@ -1,0 +1,5 @@
+dotnet ef migrations add ZdyMigration
+
+dotnet ef migrations remove
+
+dotnet ef database update

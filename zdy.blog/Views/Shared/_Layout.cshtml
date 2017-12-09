@@ -1,0 +1,63 @@
+﻿@inject Microsoft.Extensions.Configuration.IConfiguration _config
+
+@{
+    string blogName = _config["Blog:Name"];
+    string blogDesc = ViewData["Title"] == null ? _config["Blog:Description"] : ViewData["Title"].ToString();
+    string blogTitle = $"{blogDesc} - {blogName}";
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>@blogTitle</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="@_config["Blog:Description"]" />
+    <meta name="keywords" content="@_config["Blog:Keywords"]" />
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+    <link rel="icon" href="/favicon.ico">
+    @Html.Partial("_IE9ScriptsPartial.cshtml")
+    <environment include="Development">
+        <link rel="stylesheet" href="~/css/normalize.css" />
+        <link rel="stylesheet" href="~/css/base.css" />
+        <link rel="stylesheet" href="~/css/partial.css" />
+        <link rel="stylesheet" href="~/css/pagination.css" />
+        <link rel="stylesheet" href="~/css/comments.css" />
+        <link rel="stylesheet" href="~/css/categories.css" />
+        <link rel="stylesheet" href="~/css/photos.css" />
+        <link rel="stylesheet" href="~/css/responsive.css" />
+        <link rel="stylesheet" href="~/lib/jquery-fancybox/jquery.fancybox.min.css" />
+        <link rel="stylesheet" href="~/css/site.css" />
+    </environment>
+    <environment exclude="Development">
+        <link rel="stylesheet" href="~/css/site.min.css" asp-append-version="true" />
+    </environment>
+</head>
+<body>
+    @Html.Partial("_Header.cshtml")
+    <main class="main">
+        @RenderBody()
+    </main>
+    @Html.Partial("_Footer.cshtml")
+    
+    <environment include="Development">
+        <script src="~/lib/jquery/dist/jquery.js"></script>
+        <script src="~/lib/jquery-lazyload/jquery.lazyload.min.js"></script>
+        <script src="~/lib/jquery-fancybox/jquery.fancybox.min.js"></script>
+        <script src="~/lib/prism/prism.js"></script>
+        <script src="~/lib/marked/marked.js"></script>
+        <script src="~/js/site.js" asp-append-version="true"></script>
+    </environment>
+    <environment exclude="Development">
+        <script src="https://ajax.aspnetcdn.com/ajax/jquery/jquery-2.2.0.min.js"
+                asp-fallback-src="~/lib/jquery/dist/jquery.min.js"
+                asp-fallback-test="window.jQuery"
+                crossorigin="anonymous"
+                integrity="sha384-K+ctZQ+LL8q6tP7I94W+qzQsfRV2a+AfHIi9k8z8l9ggpc8X+Ytst4yBo/hH+8Fk">
+        </script>
+        <script src="~/js/site.min.js" asp-append-version="true"></script>
+    </environment>
+    @RenderSection("Scripts", required: false)
+</body>
+</html>
+@Html.Partial("_BaiduAutoPush.cshtml")

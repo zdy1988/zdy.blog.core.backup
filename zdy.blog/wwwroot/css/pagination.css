@@ -1,0 +1,112 @@
+﻿/* ==========================================================================
+   Pagination
+   ========================================================================== */
+
+.pagination {
+    text-align: center;
+}
+
+    .page-number-basic,
+    .pagination .prev,
+    .pagination .next,
+    .pagination .page-number,
+    .pagination .space {
+        display: inline-block;
+        position: relative;
+        top: -1px;
+        margin: 0 10px;
+        padding: 0 10px;
+        line-height: 30px;
+    }
+
+@media (max-width: 767px) {
+    .page-number-basic,
+    .pagination .prev,
+    .pagination .next,
+    .pagination .page-number,
+    .pagination .space {
+        margin: 0 5px;
+    }
+}
+
+.pagination .prev,
+.pagination .next,
+.pagination .page-number {
+    border-bottom: 0;
+    border-top: 1px solid #ddd;
+    transition-property: border-color;
+    transition-duration: 0.2s;
+    transition-timing-function: ease-in-out;
+    transition-delay: 0s;
+}
+
+    .pagination .prev:hover,
+    .pagination .next:hover,
+    .pagination .page-number:hover {
+        border-top-color: #222;
+    }
+
+.pagination .space {
+    padding: 0;
+    margin: 0;
+}
+
+.pagination .prev {
+    margin-left: 0;
+}
+
+.pagination .next {
+    margin-right: 0;
+}
+
+.pagination .page-number.current {
+    color: #fff;
+    background: #ccc;
+    border-top-color: #ccc;
+}
+
+@media (max-width: 767px) {
+    .pagination {
+        border-top: none;
+    }
+
+        .pagination .prev,
+        .pagination .next,
+        .pagination .page-number {
+            margin-bottom: 10px;
+            border-top: 0;
+            border-bottom: 1px solid #eee;
+        }
+
+            .pagination .prev:hover,
+            .pagination .next:hover,
+            .pagination .page-number:hover {
+                border-bottom-color: #222;
+            }
+}
+
+.front-pager {
+    background-color: #fafafa;
+    padding: 0 45px;
+    box-shadow: 1px 2px 3px #ddd;
+    line-height: 118px;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    margin-top: 30px;
+}
+
+    .front-pager .pagination {
+        font-size: 1.875rem;
+        text-align: right;
+    }
+
+        .front-pager .pagination .page-number.current {
+            color: #fd971f;
+            background: none;
+        }
+
+        .front-pager .pagination .page-number {
+            border-top: none;
+            color: #999;
+            margin: 0px;
+        }

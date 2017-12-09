@@ -1,0 +1,25 @@
+﻿.categories-list {
+    list-style: none;
+    padding: 0px;
+    margin: 0 -6px;
+    font-size: 1rem;
+}
+
+.categories-list-item {
+    display: inline-block;
+    margin: 6px;
+}
+
+    .categories-list-item .category-list-count {
+        color: #bbb;
+    }
+
+        .categories-list-item .category-list-count:before {
+            display: inline;
+            content: " (";
+        }
+
+        .categories-list-item .category-list-count:after {
+            display: inline;
+            content: ") ";
+        }

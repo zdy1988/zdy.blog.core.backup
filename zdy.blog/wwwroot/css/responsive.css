@@ -1,0 +1,165 @@
+﻿@media (min-width: 768px) and (max-width: 979px) {
+    body {
+        margin: 30px;
+    }
+
+    .head,
+    .main,
+    .foot {
+        width: 100%;
+    }
+
+    .head {
+        margin-top: 0;
+    }
+
+    .foot {
+        margin-bottom: 0;
+    }
+}
+
+@media (max-width: 767px) {
+    .head,
+    .main,
+    .foot {
+        width: 100%;
+    }
+
+    .head,
+    .foot {
+        padding: 20px;
+        height: auto;
+        line-height: inherit;
+    }
+
+    .head-nav,
+    .foot-copy,
+
+    .main {
+        margin-top: 20px;
+        margin-bottom: 20px;
+    }
+
+    .head {
+        margin-top: 0;
+        text-align: center;
+    }
+
+    .head-nav-list {
+        padding-top: 20px;
+        display:none;
+    }
+
+    .head-nav {
+        margin-top: 10px;
+        margin: 0px;
+        float: none;
+        clear: both;
+    }
+
+    .head-nav-item {
+        margin: 0 5px;
+        margin-left: 0;
+        display: block;
+        width: 100%;
+        padding: 10px;
+        text-align: right;
+    }
+
+        .head-nav-item:first-child {
+            border-top: 1px solid #fff;
+            padding-top: 30px;
+        }
+
+    .head-nav-link {
+        display:block;
+    }
+
+    .head-nav-toggle {
+        display:block;
+    }
+
+    .post {
+        margin-top: 20px;
+    }
+
+    .post-head,
+    .post-main {
+        margin: 20px;
+    }
+
+    .post-title {
+        margin-top: 2px;
+    }
+
+    .post-main blockquote,
+    .post-main pre {
+        margin: 30px -20px;
+        padding: 20px;
+    }
+
+    .post-foot {
+        position: relative;
+        padding: 10px;
+    }
+
+    .post-tag {
+        display: none;
+    }
+
+    .post-more {
+        box-sizing: border-box;
+        width: 100%;
+        text-align: center;
+    }
+
+    .post-image {
+        margin: 20px -20px;
+    }
+
+        .post-image img {
+            margin: 0 auto;
+        }
+
+    .foot {
+        margin-bottom: 0;
+        text-align: center;
+    }
+
+    .foot bdi {
+        display: none;
+    }
+
+    .archive-title {
+        margin: 20px;
+    }
+
+    .comments-list-item [itemprop='commentText'] img {
+        width: 100%;
+    }
+
+    .comments-list-item .comments-visitor {
+        width: 30px;
+        height: 30px;
+    }
+
+    .comments-list-item .comments-content {
+        padding-left: 40px;
+    }
+
+    #html-preview {
+        display:none;
+    }
+
+    .post-markdown {
+        width:100%;
+    }
+
+    .front-pager .pagination {
+        text-align:center;
+    }
+
+    .front-pager .pagination .page-number {
+        border-bottom: none;
+    }
+}

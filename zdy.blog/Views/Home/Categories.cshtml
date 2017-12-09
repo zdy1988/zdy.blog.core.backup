@@ -1,0 +1,26 @@
+﻿@using System.Collections.Generic
+@model List<KeyValuePair<string, int>>
+@{
+    ViewData["Title"] = "Categories";
+}
+
+<article class="post">
+    <header class="post-head">
+        <h1 class="post-title">
+            <a href="javascript:;">
+                Tags
+            </a>
+        </h1>
+    </header>
+    <div class="post-main" style="min-height:1000px;">
+        <ul class="categories-list">
+            @foreach (var item in Model)
+            {
+                <li class="categories-list-item">
+                    <a href="/search/@item.Key">@item.Key</a>
+                    <span class="category-list-count">@item.Value</span>
+                </li>
+            }
+        </ul>
+    </div>
+</article>

@@ -1,0 +1,52 @@
+﻿@using Zdy.Blog.Data.Models
+@model IEnumerable<Zdy.Blog.Data.Models.Post>
+@inject Zdy.Blog.Services.IRepository _repository
+@addTagHelper "Zdy.Blog.TagExtends.PagerTagHelper,Zdy.Blog"
+@{
+    ViewData["Title"] = "Archives";
+}
+
+@foreach (var post in Model)
+{
+    <article class="post">
+        <header class="post-head">
+            <time datetime="@post.PubDate" class="post-time">
+                @post.PubDate.ToString("MMMM dd，yyyy")
+            </time>
+            <h1 class="post-title">
+                <a href="/post/@post.Slug">
+                    @post.Title
+                </a>
+            </h1>
+        </header>
+        <footer class="post-foot u-cf">
+            @{
+                if (!string.IsNullOrEmpty(post.Categories))
+                {
+                    var categories = post.Categories.Split(',');
+
+                    <ul class="post-tag u-fl">
+                        @foreach (var category in categories)
+                        {
+                            <li class="post-tag-item">
+                                <a href="/search/@category" class="post-tag-link">
+                                    @category
+                                </a>
+                            </li>
+                        }
+                    </ul>
+                }
+            }
+
+            @{
+                int cc = await _repository.CountAsync<Comment>(t => t.IsApproved && t.SourceID == post.ID);
+            }
+
+            <a href="/post/@post.Slug#post-comments" class="post-foot-link u-fr">@cc COMMENTS</a>
+        </footer>
+    </article>
+}
+
+<div class="front-pager">
+    <pager pager-option="@ViewBag.PagerOption"></pager>
+</div>

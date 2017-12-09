@@ -1,0 +1,56 @@
+﻿@model IEnumerable<Zdy.Blog.Data.Models.Comment>
+@using Zdy.Blog.TagExtends
+@using Zdy.Blog.Data.Models
+@inject Zdy.Blog.Services.IRepository _repository
+@addTagHelper "Zdy.Blog.TagExtends.PagerTagHelper,Zdy.Blog"
+@addTagHelper "Zdy.Blog.TagExtends.MarkdownTagHelper,Zdy.Blog"
+
+<article class="post">
+    <header class="post-head">
+        <h1 class="post-title">
+            <a href="javascript:;">
+                Comment List
+            </a>
+        </h1>
+    </header>
+    <div class="post-main echo">
+        <div class="admin-list">
+            @foreach (var comment in Model)
+            {
+                var post = await _repository.GetAsync<Post>(t => t.ID == comment.SourceID);
+
+                @if (post != null)
+                {
+                    <article class="admin-list-item" itemscope="" itemtype="http://schema.org/Post" itemprop="admin">
+                        <div class="admin-content">
+                            <h2>@post.Title</h2>
+                            <button class="btn btn-link">@comment.Author</button>
+                            <time datetime="@comment.PubDate" itemprop="adminTime">@comment.PubDate</time>
+                            <div itemprop="adminText">
+                                @{
+                                    var markdownOption = new MarkdownOption
+                                    {
+                                        StringContent = comment.Content
+                                    };
+                                }
+
+                                <markdown markdown-option="@markdownOption"></markdown>
+                            </div>
+
+                            @if (!comment.IsApproved)
+                            {
+                                <a class="btn btn-link comment-approve" style="color:blue" data-id="@comment.ID">Approve</a>
+                            }
+
+                            <a class="btn btn-link comment-remove" style="color:red" data-id="@comment.ID">Remove</a>
+                        </div>
+                    </article>
+                }
+            }
+        </div>
+
+        <pager pager-option="@ViewBag.PagerOption"></pager>
+
+    </div>
+</article>
+

@@ -1,0 +1,41 @@
+﻿@model IEnumerable<Zdy.Blog.Data.Models.Post>
+@addTagHelper "Zdy.Blog.TagExtends.PagerTagHelper,Zdy.Blog"
+
+<article class="post">
+    <header class="post-head">
+        <h1 class="post-title">
+            <a href="javascript:;">
+                Post List
+            </a>
+        </h1>
+    </header>
+    <div class="post-main echo">
+        <div class="admin-list">
+            @foreach (var post in Model)
+            {
+                <article class="admin-list-item" itemscope="" itemtype="http://schema.org/Post" itemprop="admin">
+                    <div class="admin-content">
+                        <button class="btn btn-link">@post.Author</button>
+                        <time datetime="@post.PubDate" itemprop="adminTime">@post.PubDate</time>
+                        <p itemprop="adminText">
+                            <a href="/admin/postedit/@post.ID">@post.Title</a>
+                        </p>
+                        @{
+                            if (!string.IsNullOrEmpty(post.Categories))
+                            {
+                                var categories = post.Categories.Split(',');
+                                foreach (var category in categories)
+                                {
+                                    <button class="btn btn-link">#@category</button>
+                                }
+                            }
+                        }
+                    </div>
+                </article>
+            }
+        </div>
+
+        <pager pager-option="@ViewBag.PagerOption"></pager>
+                                                        
+    </div>
+</article>

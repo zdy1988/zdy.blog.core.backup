@@ -1,0 +1,38 @@
+﻿@model LoginViewModel
+@using System.Security.Claims;
+@{
+    ViewData["Title"] = "Login";
+}
+<article class="post">
+    <header class="post-head">
+        <h1 class="post-title">
+            <a href="javascript:;">
+                Index
+            </a>
+        </h1>
+    </header>
+    <div class="post-main echo" style="height:600px;">
+    @if (User.Identity.IsAuthenticated)
+    {
+        <h2>
+            Welcome , @User.Identities.First(u => u.IsAuthenticated).FindFirst(ClaimTypes.Name).Value
+        </h2>
+        <p>The Authentication Type ： @User.Identity.AuthenticationType</p>
+        <p><a asp-controller="Admin" asp-action="LogOut">Logout</a></p>
+    }
+    else
+    {
+        <form method="post" aria-labelledby="legend" asp-controller="Admin" asp-action="Login" asp-route-returnUrl="@ViewBag.ReturnUrl">
+            <div asp-validation-summary="All"></div>
+            <fieldset>
+                <legend id="legend">Sign in</legend>
+                <input asp-for="UserName" aria-label="Username" autofocus required placeholder="Username" />
+                <input asp-for="Password" aria-label="Password" required placeholder="Password" />
+                <input asp-for="RememberMe" />
+                <label asp-for="RememberMe">Remember me</label>
+                <input type="submit" value="Sign in" />
+            </fieldset>
+        </form>
+    }
+    </div>
+</article>

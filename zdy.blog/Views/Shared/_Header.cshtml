@@ -1,0 +1,23 @@
+﻿<header class="head">
+    <h1 class="head-title u-fl">
+        <a href="/">
+            ZDY
+        </a>
+    </h1>
+    <div class="head-nav-toggle">
+        <button>
+            <span class="btn-bar"></span> 
+            <span class="btn-bar"></span> 
+            <span class="btn-bar"></span>
+        </button>
+    </div>
+
+    @if (Context.Request.Path.Value.ToLower().IndexOf("admin") == -1)
+    {
+        @Html.Partial("_Nav.cshtml")
+    }
+    else if(User.Identity.IsAuthenticated)
+    {
+        @Html.Partial("_NavAdmin.cshtml")
+    }
+</header>

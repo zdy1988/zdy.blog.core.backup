@@ -1,0 +1,37 @@
+﻿// Configure bundling and minification for the project.
+// More info at https://go.microsoft.com/fwlink/?LinkId=808241
+[
+  {
+    "outputFileName": "wwwroot/css/site.min.css",
+    // An array of relative input file paths. Globbing patterns supported
+    "inputFiles": [
+      "wwwroot/css/normalize.css",
+      "wwwroot/css/base.css",
+      "wwwroot/css/partial.css",
+      "wwwroot/css/pagination.css",
+      "wwwroot/css/comments.css",
+      "wwwroot/css/categories.css",
+      "wwwroot/css/photos.css",
+      "wwwroot/css/responsive.css",
+      "wwwroot/lib/jquery-fancybox/jquery.fancybox.min.css",
+      "wwwroot/css/site.css"
+    ]
+  },
+  {
+    "outputFileName": "wwwroot/js/site.min.js",
+    "inputFiles": [
+      "wwwroot/lib/jquery-lazyload/jquery.lazyload.min.js",
+      "wwwroot/lib/jquery-fancybox/jquery.fancybox.min.js",
+      "wwwroot/lib/prism/prism.js",
+      "wwwroot/lib/marked/marked.js",
+      "wwwroot/js/site.js"
+    ],
+    // Optionally specify minification options
+    "minify": {
+      "enabled": true,
+      "renameLocals": true
+    },
+    // Optionally generate .map file
+    "sourceMap": false
+  }
+]

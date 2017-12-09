@@ -1,0 +1,44 @@
+﻿@using Zdy.Blog.Data.Models
+@model Guid
+@{
+    Layout = null;
+    var comment = new Comment();
+    comment.SourceID = Model;
+}
+<article class="post">
+    <header class="post-head">
+        <h1 class="post-title">
+            <a href="javascript:;">
+                Post Comments
+            </a>
+        </h1>
+    </header>
+    <div class="post-main echo">
+        <form role="form" id="comments-form" class="comments-form" asp-controller="Home" asp-action="AddComment">
+            <div class="form-group">
+                <div>
+                    <input asp-for="@comment.SourceID" type="hidden"/>
+                    <label asp-for="@comment.Author" class="control-label">Name</label>
+                    <input asp-for="@comment.Author" class="form-control" type="text" placeholder="Name" required="">
+                </div>
+                <div>
+                    <label asp-for="@comment.Email" class="control-label">Email</label>
+                    <input asp-for="@comment.Email" class="form-control" type="email" placeholder="Email" required="">
+                </div>
+                <div>
+                    <label asp-for="@comment.Content" class="control-label">Content</label>
+                    <textarea asp-for="@comment.Content" class="form-control" rows="4" placeholder="Comment" required=""></textarea>
+                </div>
+            </div>
+            <div class="form-action">
+                <button class="btn btn-primary" type="button" id="upload">Image</button>
+                <button class="btn btn-primary u-fr" type="submit">Post</button>
+            </div>
+        </form>
+        <input type="file" multiple="multiple" id="files" data-type="comment" style="position: absolute;left: -1000px;top: 0px;" />
+    </div>
+    @if (Model != null)
+    {
+        await Html.RenderPartialAsync("_Comments", Model);
+    }
+</article>
