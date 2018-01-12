@@ -13,9 +13,11 @@
         <div class="admin-list">
             @foreach (var gallery in Model)
             {
+                string isPublished = gallery.IsPublished ? "已发布" : "未发布";
+
                 <article class="admin-list-item" itemscope="" itemtype="http://schema.org/Post" itemprop="admin">
                     <div class="admin-content">
-                        <button class="btn btn-link">@gallery.IsPublished</button>
+                        <button class="btn btn-link">@isPublished</button>
                         <time datetime="@gallery.PubDate" itemprop="adminTime">@gallery.PubDate</time>
                         <p itemprop="adminText">
                             <a href="/admin/galleryedit/@gallery.ID">@gallery.Title</a>
