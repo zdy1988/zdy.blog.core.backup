@@ -4,6 +4,7 @@
 @addTagHelper "Zdy.Blog.TagExtends.PagerTagHelper,Zdy.Blog"
 @{
     ViewData["Title"] = "Photos";
+    ViewData["Keywords"] = "Photos,所有照片";
 }
 
 @foreach (var gallery in Model)
@@ -23,13 +24,13 @@
         <div class="post-main">
             <ul class="photos-list">
                 @{
-                    var photos = await _repository.FindAsync<Photo, DateTime>(t => t.SourceID == gallery.ID, t => t.PubDate, 1, 1, out int count);
+                    var photos = await _repository.FindAsync<Photo, long>(t => t.SourceID == gallery.ID, t => t.Sort, 1, 1, out int count);
                 }
                 @foreach (var photo in photos)
                 {
                     var photoUrl = $"/upload/gallery/{gallery.ID}/{photo.FileName}";
                     <li class="photos-list-item">
-                        <a href="@photoUrl" class="fancybox" data-fancybox="gallery">
+                        <a href="@photoUrl" class="fancybox" data-fancybox="@gallery.ID">
                             <img class="lazy" data-original="@photoUrl">
                         </a>
                     </li>

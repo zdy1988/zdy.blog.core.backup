@@ -19,22 +19,30 @@
         </header>
 
         <div class="post-main">
+            <div>
+                <button class="btn btn-primary" type="button" id="upload" style="margin-bottom: 20px;">Upload Image</button>
+                <input type="file" multiple="multiple" id="files" data-type="gallery/@Model.ID" style="position: absolute;left: -1000px;top: 0px;" />
+            </div>
             <ul class="photos-list">
-                @foreach (var photo in photos.OrderByDescending(t=>t.PubDate))
+                @foreach (var photo in photos.OrderByDescending(t => t.Sort).ThenByDescending(t => t.PubDate))
                 {
                     var photoUrl = $"/upload/gallery/{Model.ID}/{photo.FileName}";
                     <li class="photos-list-item">
-                        <a href="@photoUrl" class="fancybox" data-fancybox="gallery">
-                            <img class="lazy" data-original="@photoUrl">
-                        </a>
-                        <a class="btn text-danger photo-remove" style="color:red;" data-photo="@photo.ID">remove</a>
+                        <div class="photo-form-container">
+                            <div class="u-fl">
+                                <a href="@photoUrl" class="fancybox" data-fancybox="gallery">
+                                    <img class="lazy" data-original="@photoUrl">
+                                </a>
+                            </div>
+                            <div class="u-fl">
+                                @{
+                                    await Html.RenderPartialAsync("_PhotoEditForm", photo);
+                                }
+                            </div>
+                        </div>
                     </li>
-                }
+                                    }
             </ul>
-            <div>
-                <button class="btn btn-primary" type="button" id="upload" style="margin-top: 20px;">Upload Image</button>
-                <input type="file" multiple="multiple" id="files" data-type="gallery/@Model.ID" style="position: absolute;left: -1000px;top: 0px;" />
-            </div>
         </div>
     </article>
 }

@@ -1,0 +1,22 @@
+﻿@model Zdy.Blog.Data.Models.Photo
+@{
+    Layout = null;
+}
+
+<form role="form" asp-controller="Admin" asp-action="PhotoUpdate" class="photo-form" id="@Model.ID">
+    <div>
+        <input name="ID" value="@Model.ID" type="hidden" />
+        <label asp-for="Title" class="control-label">Title</label>
+        <input asp-for="Title" class="form-control" type="text" placeholder="Title">
+    </div>
+    <div>
+        <label asp-for="Sort" class="control-label">Sort</label>
+        <input asp-for="Sort" class="form-control" type="number" placeholder="Sort" required="">
+    </div>
+    <div>
+        <label asp-for="Sort" class="control-label">Opration</label>
+        <br />
+        <a class="btn btn-danger photo-remove" data-photo="@Model.ID">remove</a>
+        <button class="btn btn-primary photo-save" data-photo="@Model.ID" type="submit">save</button>
+    </div>
+</form>

@@ -8,7 +8,7 @@
 
 @foreach (var post in Model)
 {
-    <article class="post">
+    <article class="post" id="@post.ID">
         <header class="post-head">
             <time datetime="@post.PubDate" class="post-time">
                 @post.PubDate.ToString("MMMM dd，yyyy") 

@@ -4,6 +4,7 @@
 @addTagHelper "Zdy.Blog.TagExtends.PagerTagHelper,Zdy.Blog"
 @{
     ViewData["Title"] = Model.Title;
+    ViewData["Keywords"] = Model.Categories;
     var gallery = Model;
 }
 
@@ -24,13 +25,17 @@
             @{
                 var photos = await _repository.FindAsync<Photo>(t => t.SourceID == gallery.ID);
             }
-            @foreach (var photo in photos.OrderByDescending(t => t.PubDate))
+            @foreach (var photo in photos.OrderByDescending(t => t.Sort).ThenByDescending(t => t.PubDate))
             {
                 var photoUrl = $"/upload/gallery/{gallery.ID}/{photo.FileName}";
                 <li class="photos-list-item">
-                    <a href="@photoUrl" class="fancybox" data-fancybox="gallery">
+                    <a href="@photoUrl" class="fancybox" data-fancybox="@gallery.ID">
                         <img class="lazy" data-original="@photoUrl">
                     </a>
+                    @if (!string.IsNullOrEmpty(@photo.Title))
+                    {
+                        <p>@photo.Title</p>
+                    }
                 </li>
             }
         </ul>

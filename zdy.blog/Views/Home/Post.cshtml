@@ -5,9 +5,10 @@
 @addTagHelper "Zdy.Blog.TagExtends.MarkdownTagHelper,Zdy.Blog"
 @{
     ViewData["Title"] = Model.Title;
+    ViewData["Keywords"] = Model.Categories;
     var post = Model;
 }
-<article class="post">
+<article class="post" id="@post.ID">
     <header class="post-head">
         <time datetime="@post.PubDate" class="post-time">
             @post.PubDate.ToString("MMMM dd，yyyy") 

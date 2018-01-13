@@ -104,7 +104,8 @@
     }
 
     .post-tag {
-        display: none;
+        max-width:50%;
+        overflow:hidden;
     }
 
     .post-more {
@@ -120,6 +121,10 @@
         .post-image img {
             margin: 0 auto;
         }
+
+    .post-main .post-pano img {
+        height: 240px;
+    }
 
     .foot {
         margin-bottom: 0;
@@ -162,4 +167,13 @@
     .front-pager .pagination .page-number {
         border-bottom: none;
     }
+
+    .photo-form-container .u-fl {
+        float:none;
+        width: 100%;
+    }
+
+        .photo-form-container .u-fl form {
+            margin: 1.6em 0;
+        }
 }

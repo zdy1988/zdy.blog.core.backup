@@ -85,6 +85,13 @@
     },
     handleFaccybox: function (selector) {
         if (!!$().fancybox) {
+            $(".echo img").each(function () {
+                var $this = $(this)
+                var id = $this.closest("article").attr("id")
+                var src = $this.attr("src")
+                var $parent = $this.parent()
+                $("<a href='" + src + "' class='fancybox' data-fancybox='" + id + "'></a>").append($this).appendTo($parent)
+            })
             $("[data-fancybox]").fancybox({
                 protect: true
             });
@@ -167,6 +174,15 @@
                 window.location = "/Admin/GalleryEdit/" + rst.data.id
             }
         })
+        $(".photo-form").each(function () {
+            var id = $(this).attr("id")
+            site.handleForm(id, "json", function (rst) {
+                alert(rst.message)
+                if (rst.isSuccess == true) {
+                    window.location = "/Admin/GalleryEdit/" + rst.data.sourceID
+                }
+            })
+        })
 
         $(".gallery-remove").click(function () {
             var $self = $(this)
@@ -182,7 +198,7 @@
             if (confirm("are you sure you want to delete this photo?")) {
                 var photoId = $self.data("photo")
                 $.post("/Admin/PhotoDelete?photoId=" + photoId).done(function (rst) {
-                    $self.parent().remove();
+                    $self.closest("li").remove();
                 })
             }
         })

@@ -187,6 +187,30 @@ namespace Zdy.Blog.Controllers
             return Json(new { IsSuccess = true });
         }
 
+        [HttpPost]
+        public async Task<IActionResult> PhotoUpdate(Photo photo)
+        {
+            if (!ModelState.IsValid)
+            {
+                RedirectToAction("GalleryEdit", "Admin");
+            }
+
+            var exist = await _repository.GetAsync<Photo>(t => t.ID == photo.ID);
+
+            if (exist != null)
+            {
+                exist.Title = photo.Title;
+                exist.Sort = photo.Sort;
+
+                _repository.Update<Photo>(exist);
+                await _repository.SaveChangesAsync();
+
+                return Json(new { IsSuccess = true, Message = "post success!", Data = exist });
+            }
+
+            return NotFound();
+        }
+
         public async Task<IActionResult> PhotoDelete(string photoId)
         {
             var photo = _repository.Get<Photo>(t => t.ID == new Guid(photoId));

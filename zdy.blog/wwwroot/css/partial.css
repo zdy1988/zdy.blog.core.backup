@@ -1,6 +1,7 @@
 ﻿/* ==========================================================================
    Partial
    ========================================================================== */
+
 .head,
 .main,
 .foot {
@@ -209,6 +210,23 @@
         display: block;
         margin: 1.6em auto;
     }
+
+    .post-main .post-pano {
+        max-width: 100%;
+        overflow-x: scroll;
+        margin:1em auto;
+    }
+
+        .post-main .post-pano p {
+            margin: 0px;
+        }
+
+        .post-main .post-pano img {
+            max-width: none;
+            width:initial;
+            margin: 0;
+            height: 480px;
+        }
 
 .post-foot {
     padding: 30px 60px;

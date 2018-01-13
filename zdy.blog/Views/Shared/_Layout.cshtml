@@ -4,16 +4,21 @@
     string blogName = _config["Blog:Name"];
     string blogDesc = ViewData["Title"] == null ? _config["Blog:Description"] : ViewData["Title"].ToString();
     string blogTitle = $"{blogDesc} - {blogName}";
+    string blogKeywords = _config["Blog:Keywords"];
+    if (ViewData["KeyWords"] != null)
+    {
+        blogKeywords += "," + ViewData["KeyWords"].ToString();
+    }
 }
 
 <!DOCTYPE html>
-<html>
+<html onselectstart="return false;" ondragstart="return false;">
 <head>
     <meta charset="utf-8" />
     <title>@blogTitle</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="description" content="@_config["Blog:Description"]" />
-    <meta name="keywords" content="@_config["Blog:Keywords"]" />
+    <meta name="description" content="@blogDesc" />
+    <meta name="keywords" content="@blogKeywords" />
     <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
     <link rel="icon" href="/favicon.ico">
     @Html.Partial("_IE9ScriptsPartial.cshtml")

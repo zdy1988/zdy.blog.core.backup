@@ -1,13 +1,11 @@
 ﻿.photos-list {
     list-style: none;
     padding: 0px;
-    margin: 0 -6px;
     display: inline-block;
 }
 
 .photos-list-item img {
     width: 100%;
-    border: 7px solid #fff;
     cursor: pointer;
     position: relative;
     -moz-box-shadow: 1px 1px 1px #aaa;
@@ -22,7 +20,23 @@
     }
 
 
-/*.photos-list-item {
+/*
+.photos-list-item img {
+    border: 7px solid #fff;
+    cursor: pointer;
+    position: relative;
+    -moz-box-shadow: 1px 1px 1px #aaa;
+    -webkit-box-shadow: 1px 1px 1px #aaa;
+    box-shadow: 1px 1px 1px #aaa;
+}
+
+    .photos-list-item img:hover {
+        -moz-box-shadow: 1px 1px 7px #777;
+        -webkit-box-shadow: 1px 1px 7px #777;
+        box-shadow: 1px 1px 7px #777;
+    }
+    
+.photos-list-item {
     float: left;
     margin: 5px;
 }
@@ -64,3 +78,15 @@
     .photos-list-item:nth-child(6n) img {
         height: 75px;
     }*/
+
+.photo-form {
+    margin: 1.6em 0 1.6em 1.6em;
+}
+
+.photo-form-container {
+    display: inline-block;
+}
+
+    .photo-form-container .u-fl {
+        width: 50%;
+    }
