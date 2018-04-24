@@ -9,25 +9,23 @@
     width: 900px;
 }
 
-.head,
-.foot {
-    padding: 0 60px;
-    height: 120px;
-    border: 1px solid #000;
-    background-color: #262a30;
-    box-shadow: 1px 2px 3px #ddd;
-    line-height: 118px;
+.head {
+    padding: 0 40px;
+    height: 100px;
+    line-height: 98px;
     -moz-box-sizing: border-box;
     box-sizing: border-box;
 }
 
 .head {
-    margin-top: 90px;
+    background-color: black;
+    margin-top: 40px;
+    box-shadow: 1px 2px 3px #ddd;
 }
 
 .head-title {
     font-size: 30px;
-    font-size: 1.875rem;
+    font-size: 1.6rem;
     font-weight: normal;
 }
 
@@ -42,6 +40,7 @@
 
 .head-nav-link {
     color: #999;
+    font-size: 90%;
 }
 
     .head-nav-link:hover {
@@ -70,9 +69,18 @@
         border-radius: 1px;
     }
 
+.foot {
+    margin-top: 40px;
+    margin-bottom: 40px;
+}
+
+.foot-copy {
+    color: #999;
+    font-size: 75%;
+    text-align: center;
+}
+
 .main {
-    margin-top: 30px;
-    margin-bottom: 30px;
 }
 
 .archive-title {
@@ -90,16 +98,6 @@
     box-shadow: 1px 2px 3px #ddd;
 }
 
-.foot {
-    margin-bottom: 30px;
-}
-
-.foot-copy {
-    color: #999;
-    font-size: 12px;
-    font-size: 0.75rem;
-}
-
 .post {
     overflow: hidden;
     margin-top: 30px;
@@ -108,7 +106,7 @@
 }
 
 .post-head {
-    margin: 60px;
+    margin: 40px;
 }
 
 .post-time {
@@ -152,11 +150,11 @@
     }
 
 .post-main {
-    margin: 60px;
+    margin: 40px;
 }
 
     .post-main .highlight {
-        margin: 1.6em -60px;
+        margin: 1.6em -40px;
         padding: 30px;
     }
 
@@ -202,20 +200,28 @@
     }
 
     .post-main pre {
-        margin: 1.6em -60px;
+        margin: 1.6em -40px;
         padding: 30px 60px;
     }
 
     .post-main img {
         display: block;
         margin: 1.6em auto;
+        background-color: #ddd;
     }
 
-    .post-main .post-pano {
-        max-width: 100%;
-        overflow-x: scroll;
-        margin:1em auto;
-    }
+        .post-main img:first-child {
+              margin-top: 0px;
+        }
+
+        .post-main img:last-child {
+            margin-bottom: 0px;
+        }
+
+        .post-main .post-pano {
+            max-width: 100%;
+            overflow-x: scroll;
+        }
 
         .post-main .post-pano p {
             margin: 0px;
@@ -227,12 +233,25 @@
             margin: 0;
             height: 480px;
         }
+    .post-main .more-link {
+        margin-top: 2em;
+    }
+        .post-main .more-link a {
+            display: inline-block;
+            line-height: 1em;
+            text-shadow: 0 1px #fff;
+            text-decoration: none;
+            padding-bottom: 4px;
+            border-bottom: 1px solid #999;
+            color: #999;
+        }
 
-.post-foot {
-    padding: 30px 60px;
-    border-top: 1px solid #ddd;
-    background-color: #fafafa;
-}
+
+        .post-foot {
+            padding: 15px 10px;
+            margin: 0 20px;
+            border-top: 1px solid #ddd;
+        }
 
 .post-foot-link,
 .post-tag-link,
