@@ -30,7 +30,7 @@
                 var photoUrl = $"/upload/gallery/{gallery.ID}/{photo.FileName}";
                 <li class="photos-list-item">
                     <a href="@photoUrl" class="fancybox" data-fancybox="@gallery.ID">
-                        <img class="lazy" data-original="@photoUrl">
+                        <img src="@photoUrl">
                     </a>
                     @if (!string.IsNullOrEmpty(@photo.Title))
                     {
@@ -64,7 +64,8 @@
             int cc = await _repository.CountAsync<Comment>(t => t.IsApproved && t.SourceID == gallery.ID);
         }
 
-        <a href="/photo/@gallery.Slug#post-comments" class="post-foot-link u-fr">@cc COMMENTS</a>
+        <a href="/photo/@gallery.Slug" class="post-foot-link u-fr"><img class="icon" src="~/images/see.png" />@gallery.CheckNumber</a>
+        <a href="/photo/@gallery.Slug#post-comments" class="post-foot-link u-fr"><img class="icon" src="~/images/comments.png" />@cc</a>
     </footer>
 </article>
 

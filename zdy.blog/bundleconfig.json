@@ -20,7 +20,6 @@
   {
     "outputFileName": "wwwroot/js/site.min.js",
     "inputFiles": [
-      "wwwroot/lib/jquery-lazyload/jquery.lazyload.min.js",
       "wwwroot/lib/jquery-fancybox/jquery.fancybox.min.js",
       "wwwroot/lib/prism/prism.js",
       "wwwroot/lib/marked/marked.js",

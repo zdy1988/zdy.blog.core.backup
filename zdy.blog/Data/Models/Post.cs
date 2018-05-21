@@ -22,6 +22,7 @@ namespace Zdy.Blog.Data.Models
         public DateTime PubDate { get; set; }
         public DateTime LastModified { get; set; }
         public bool IsPublished { get; set; }
+        public int CheckNumber { get; set; } = 0;
         public string Categories { get; set; }
     }
 }

@@ -120,10 +120,6 @@
         padding: 20px;
     }
 
-    .post-main .more-link {
-        text-align:center;
-    }
-
     .post-foot {
         position: relative;
         padding: 0px;
@@ -150,10 +146,6 @@
 
     .post-main .post-pano img {
         height: 240px;
-    }
-
-    .archive-title {
-        margin: 20px;
     }
 
     .comments-list-item [itemprop='commentText'] img {

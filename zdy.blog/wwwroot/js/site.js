@@ -97,13 +97,13 @@
             });
         }
     },
-    handleLazyload: function () {
-        if (!!$().lazyload) {
-            $("img.lazy").lazyload({
-                effect: "fadeIn"
-            });
-        }
-    },
+    //handleLazyload: function () {
+    //    if (!!$().lazyload) {
+    //        $("img.lazy").lazyload({
+    //            effect: "fadeIn"
+    //        });
+    //    }
+    //},
     handleCodePre: function () {
         $("pre").each(function () {
             $(this).addClass("line-numbers");
@@ -281,7 +281,7 @@ $(function () {
     site.handleNavToggle();
     site.handleBackToTop();
     site.handleFaccybox();
-    site.handleLazyload();
+    //site.handleLazyload();
     site.handleCodePre();
     site.handleMarkdown();
     site.handlePostForm();

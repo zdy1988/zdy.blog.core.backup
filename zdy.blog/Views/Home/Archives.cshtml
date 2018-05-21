@@ -22,28 +22,29 @@
         </header>
         <footer class="post-foot u-cf">
             @{
-                if (!string.IsNullOrEmpty(post.Categories))
-                {
-                    var categories = post.Categories.Split(',');
+        if (!string.IsNullOrEmpty(post.Categories))
+        {
+            var categories = post.Categories.Split(',');
 
-                    <ul class="post-tag u-fl">
-                        @foreach (var category in categories)
-                        {
-                            <li class="post-tag-item">
-                                <a href="/search/@category" class="post-tag-link">
-                                    @category
-                                </a>
-                            </li>
-                        }
-                    </ul>
-                }
+            <ul class="post-tag u-fl">
+                @foreach (var category in categories)
+        {
+            <li class="post-tag-item">
+                <a href="/search/@category" class="post-tag-link">
+                    @category
+                </a>
+            </li>
+}
+            </ul>
+}
             }
 
             @{
-                int cc = await _repository.CountAsync<Comment>(t => t.IsApproved && t.SourceID == post.ID);
+        int cc = await _repository.CountAsync<Comment>(t => t.IsApproved && t.SourceID == post.ID);
             }
 
-            <a href="/post/@post.Slug#post-comments" class="post-foot-link u-fr">@cc COMMENTS</a>
+            <a href="/post/@post.Slug" class="post-foot-link u-fr"><img class="icon" src="~/images/see.png" />@post.CheckNumber</a>
+            <a href="/post/@post.Slug#post-comments" class="post-foot-link u-fr"><img class="icon" src="~/images/comments.png" />@cc</a>
         </footer>
     </article>
 }

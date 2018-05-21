@@ -1,7 +1,8 @@
 ﻿.categories-list {
     list-style: none;
     padding: 0px;
-    font-size: 1rem;
+    font-size: 90%;
+    text-align:center;
 }
 
 .categories-list-item {

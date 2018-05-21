@@ -66,6 +66,10 @@ namespace Zdy.Blog.Controllers
                 return NotFound();
             }
 
+            post.CheckNumber += 1;
+            _repository.Update<Post>(post);
+            await _repository.SaveChangesAsync();
+
             return View(post);
         }
 
@@ -106,7 +110,7 @@ namespace Zdy.Blog.Controllers
             var query = from posts in _repository.All<Post>()
                         join categories in _repository.All<Category>()
                         on posts.ID equals categories.SourceID
-                        where categories.Text == category
+                        where categories.Text == category && posts.IsPublished
                         select posts;
 
             var count = await query.GroupBy(t => t.ID).CountAsync();
@@ -150,7 +154,7 @@ namespace Zdy.Blog.Controllers
             var query = from galleries in _repository.All<Gallery>()
                         join categories in _repository.All<Category>()
                         on galleries.ID equals categories.SourceID
-                        where categories.Text == category
+                        where categories.Text == category && galleries.IsPublished
                         select galleries;
 
             var count = await query.GroupBy(t => t.ID).CountAsync();
@@ -179,6 +183,10 @@ namespace Zdy.Blog.Controllers
             {
                 return NotFound();
             }
+
+            gallery.CheckNumber += 1;
+            _repository.Update<Gallery>(gallery);
+            await _repository.SaveChangesAsync();
 
             return View(gallery);
         }

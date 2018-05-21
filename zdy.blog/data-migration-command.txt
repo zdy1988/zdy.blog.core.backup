@@ -3,3 +3,9 @@ dotnet ef migrations add ZdyMigration
 dotnet ef migrations remove
 
 dotnet ef database update
+
+Add-Migration ZdyMigration_01
+
+Update-Database ZdyMigration_01
+
+Script-Migration -From ZdyMigration -To ZdyMigration_01

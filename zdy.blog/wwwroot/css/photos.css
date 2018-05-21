@@ -1,4 +1,82 @@
-﻿.photos-list {
+﻿.photos-wrap-box {
+    background-color: #fff;
+    /*padding: 1%;*/
+    margin: -1%;
+    width: 102%;
+}
+
+    .photos-wrap-box .photos-wrap-item {
+        float: left;
+        background-color: #ccc;
+        position: relative; /*父元素给相对定位*/
+        overflow: hidden;
+        background-size: cover;
+        background-position: center;
+        cursor: pointer;
+        margin: 1%;
+    }
+
+    .photos-wrap-box.wrap-1 {
+        padding-bottom: 100%;
+    }
+
+        .photos-wrap-box.wrap-1 .photos-wrap-item {
+            width: 98%;
+            padding-bottom: 97%;
+        }
+
+    .photos-wrap-box.wrap-2 {
+        padding-bottom: 50%;
+    }
+
+        .photos-wrap-box.wrap-2 .photos-wrap-item {
+            width: 48%;
+            padding-bottom: 47%;
+        }
+
+    .photos-wrap-box.wrap-3 {
+        padding-bottom: 35.33%;
+    }
+
+        .photos-wrap-box.wrap-3 .photos-wrap-item {
+            width: 31.33%;
+            padding-bottom: 32.33%;
+        }
+
+    .photos-wrap-box.wrap-4 {
+        padding-bottom: 99%;
+    }
+
+        .photos-wrap-box.wrap-4 .photos-wrap-item {
+            width: 48%;
+            padding-bottom: 47%;
+        }
+
+    .photos-wrap-box.wrap-5,
+    .photos-wrap-box.wrap-6 {
+        padding-bottom: 69.67%;
+    }
+
+        .photos-wrap-box.wrap-5 .photos-wrap-item,
+        .photos-wrap-box.wrap-6 .photos-wrap-item {
+            width: 31.33%;
+            padding-bottom: 32.33%;
+        }
+
+    .photos-wrap-box.wrap-7,
+    .photos-wrap-box.wrap-8,
+    .photos-wrap-box.wrap-9 {
+        padding-bottom: 104%;
+    }
+
+        .photos-wrap-box.wrap-7 .photos-wrap-item,
+        .photos-wrap-box.wrap-8 .photos-wrap-item,
+        .photos-wrap-box.wrap-9 .photos-wrap-item {
+            width: 31.33%;
+            padding-bottom: 32.33%;
+        }
+
+.photos-list {
     list-style: none;
     padding: 0px;
     display: inline-block;

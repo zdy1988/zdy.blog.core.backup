@@ -5,6 +5,15 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Migrations\20180521104614_ZdyMigration_01.cs" />
+    <Compile Remove="Migrations\20180521104614_ZdyMigration_01.Designer.cs" />
+    <Compile Remove="Migrations\20180521104857_ZdyMigration_01.cs" />
+    <Compile Remove="Migrations\20180521104857_ZdyMigration_01.Designer.cs" />
+    <Compile Remove="Migrations\20180521105006_ZdyMigration_01.cs" />
+    <Compile Remove="Migrations\20180521105006_ZdyMigration_01.Designer.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="CommonMark.NET" Version="0.15.1" />
     <PackageReference Include="Microsoft.AspNetCore.All" Version="2.0.3" />
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="2.0.0" />

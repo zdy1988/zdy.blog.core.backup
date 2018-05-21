@@ -83,14 +83,6 @@
 .main {
 }
 
-.archive-title {
-    margin: 1.6em;
-    text-align: center;
-    font-size: 25.6px;
-    font-size: 1.6rem;
-    font-weight: normal;
-}
-
 .comments {
     margin: 30px 0;
     padding: 60px;
@@ -244,6 +236,7 @@
             padding-bottom: 4px;
             border-bottom: 1px solid #999;
             color: #999;
+            font-size: 13px;
         }
 
 
@@ -253,14 +246,20 @@
             border-top: 1px solid #ddd;
         }
 
-.post-foot-link,
-.post-tag-link,
-.post-more {
-    padding: 10px;
-    color: #999;
-    font-size: 12px;
-    font-size: 0.75rem;
-}
+            .post-foot .icon {
+                height: 20px;
+                margin-top: -3px;
+                padding-right: 8px;
+            }
+
+            .post-foot-link,
+            .post-tag-link,
+            .post-more {
+                padding: 10px;
+                color: #999;
+                font-size: 12px;
+                font-size: 0.75rem;
+            }
 
 .post-tag-item {
     display: inline-block;

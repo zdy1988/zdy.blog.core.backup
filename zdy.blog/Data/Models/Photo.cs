@@ -19,6 +19,6 @@ namespace Zdy.Blog.Data.Models
         public string FileName { get; set; }
         public long Size { get; set; }
         public DateTime PubDate { get; set; }
-        public long Sort { get; set; }
+        public int Sort { get; set; } = 0;
     }
 }

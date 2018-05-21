@@ -9,6 +9,9 @@
 
 @foreach (var gallery in Model)
 {
+    var photos = await _repository.FindAsync<Photo, long>(t => t.SourceID == gallery.ID, t => t.Sort, 9, 1, out int count);
+    var length = photos.Count;
+
     <article class="post">
         <header class="post-head">
             <time datetime="@gallery.PubDate" class="post-time">
@@ -22,20 +25,16 @@
         </header>
 
         <div class="post-main">
-            <ul class="photos-list">
-                @{
-                    var photos = await _repository.FindAsync<Photo, long>(t => t.SourceID == gallery.ID, t => t.Sort, 1, 1, out int count);
-                }
+            <div class="photos-wrap-box wrap-@length">
+
                 @foreach (var photo in photos)
                 {
-                    var photoUrl = $"/upload/gallery/{gallery.ID}/{photo.FileName}";
-                    <li class="photos-list-item">
-                        <a href="@photoUrl" class="fancybox" data-fancybox="@gallery.ID">
-                            <img class="lazy" data-original="@photoUrl">
-                        </a>
-                    </li>
+                    var url = $"/upload/gallery/{gallery.ID}/{photo.FileName}";
+                    <a class="fancybox" href="@url" data-fancybox="@gallery.ID">
+                        <div class="photos-wrap-item" style="background-image: url(@url)"></div>
+                    </a>
                 }
-            </ul>
+            </div>
 
             <p class="more-link">
                 <a href="/photo/@gallery.Slug">Read More</a>
@@ -65,7 +64,8 @@
                 int cc = await _repository.CountAsync<Comment>(t => t.IsApproved && t.SourceID == gallery.ID);
             }
 
-            <a href="/photo/@gallery.Slug#post-comments" class="post-foot-link u-fr">@cc COMMENTS</a>
+            <a href="/photo/@gallery.Slug" class="post-foot-link u-fr"><img class="icon" src="~/images/see.png" />@gallery.CheckNumber</a>
+            <a href="/photo/@gallery.Slug#post-comments" class="post-foot-link u-fr"><img class="icon" src="~/images/comments.png" />@cc</a>
         </footer>
     </article>
 }
