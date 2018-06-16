@@ -10,13 +10,13 @@ using Zdy.Blog.Data;
 using System.IO;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
-using System.Net.Http.Headers;
 using SixLabors.ImageSharp;
-using SixLabors.ImageSharp.PixelFormats;
 using Zdy.Blog.Services;
 using Microsoft.Extensions.Configuration;
 using Zdy.Blog.TagExtends;
 using Microsoft.EntityFrameworkCore;
+using System.DrawingCore;
+using System.DrawingCore.Imaging;
 
 namespace Zdy.Blog.Controllers
 {
@@ -76,12 +76,14 @@ namespace Zdy.Blog.Controllers
         [Route("/archives/{pageIndex:int?}")]
         public async Task<IActionResult> Archives(int pageIndex = 1)
         {
-            var posts = await _repository.FindAsync<Post, DateTime>(t => t.IsPublished, t => t.PubDate, int.Parse(_config["blog:pageSize"]), pageIndex, out int count);
+            int pageSize = 20;
+
+            var posts = await _repository.FindAsync<Post, DateTime>(t => t.IsPublished, t => t.PubDate, pageSize, pageIndex, out int count);
 
             var pageOption = new PagerOption
             {
                 PageIndex = pageIndex,
-                PageSize = int.Parse(_config["blog:pageSize"]),
+                PageSize = pageSize,
                 TotalCount = count,
                 RouteUrl = "/archives"
             };
@@ -130,8 +132,8 @@ namespace Zdy.Blog.Controllers
             return View("Archives", data);
         }
 
-        [Route("photos/{pageIndex:int?}")]
-        public async Task<IActionResult> Photos(int pageIndex = 1)
+        [Route("gallery/{pageIndex:int?}")]
+        public async Task<IActionResult> Gallery(int pageIndex = 1)
         {
             var photos = await _repository.FindAsync<Gallery, DateTime>(t => t.IsPublished, t => t.PubDate, int.Parse(_config["blog:pageSize"]), pageIndex, out int count);
 
@@ -140,7 +142,7 @@ namespace Zdy.Blog.Controllers
                 PageIndex = pageIndex,
                 PageSize = int.Parse(_config["blog:pageSize"]),
                 TotalCount = count,
-                RouteUrl = "/photos"
+                RouteUrl = "/gallery"
             };
 
             ViewBag.PagerOption = pageOption;
@@ -224,22 +226,35 @@ namespace Zdy.Blog.Controllers
 
         [Route("/comment")]
         [HttpPost]
-        public async Task<IActionResult> AddComment(Comment comment)
+        public async Task<IActionResult> AddComment(CommentDataObject comment)
         {
-            if (ModelState.IsValid)
+            if (String.IsNullOrEmpty(comment.Code) || comment.Code.ToLower() != HttpContext.Session.GetString("ValidateCode").ToLower())
             {
-                comment.Content = comment.Content.Trim();
-                comment.Author = comment.Author.Trim();
-                comment.Email = comment.Email.Trim();
-                comment.PubDate = DateTime.Now;
-                comment.IsAdmin = User.Identity.IsAuthenticated;
-                comment.IsApproved = !Boolean.Parse(_config["blog:IsCommentApproved"]);
-
-                await _repository.InsertAsync<Comment>(comment);
-                await _repository.SaveChangesAsync();
+                return Content("Message:验证码有误");
             }
 
-            return View("_CommentsItem", comment);
+            if (ModelState.IsValid)
+            {
+                Comment newComment = new Comment();
+                newComment.SourceID = comment.SourceID;
+                newComment.Content = comment.Content.Trim();
+                newComment.Author = comment.Author.Trim();
+                newComment.Email = comment.Email.Trim();
+                newComment.PubDate = DateTime.Now;
+                newComment.Ip = this.HttpContext.Connection.RemoteIpAddress.ToString();
+                newComment.UserAgent = this.HttpContext.Request.Headers["User-Agent"].ToString();
+                newComment.IsAdmin = User.Identity.IsAuthenticated;
+                newComment.IsApproved = !Boolean.Parse(_config["blog:IsCommentApproved"]);
+
+                await _repository.InsertAsync<Comment>(newComment);
+                await _repository.SaveChangesAsync();
+
+                return View("_CommentsItem", newComment);
+            }
+            else
+            {
+                return Content("");
+            }
         }
 
         [Route("/comments/{sourceId}/{pageIndex:int?}")]
@@ -273,19 +288,26 @@ namespace Zdy.Blog.Controllers
                     string fileName = fileId + Path.GetExtension(file.FileName);
                     string filePath = Path.Combine(relative, fileName);
                     size += file.Length;
-                    await Task.Run(() =>
+                    //压缩图片
+                    //await Task.Run(() =>
+                    //{
+                    //    using (Image<Rgba32> image = SixLabors.ImageSharp.Image.Load(file.OpenReadStream()))
+                    //    {
+                    //        if (file.Length > 200 * 1024)
+                    //        {
+                    //            int imageWidth = string.IsNullOrEmpty(Request.Form["imageWidth"]) ? 1080 : int.Parse(Request.Form["imageWidth"]);
+                    //            var imageHeight = image.Height * imageWidth / image.Width;
+                    //            image.Mutate(x => x.Resize(imageWidth, imageHeight));
+                    //        }
+                    //        image.Save(filePath);
+                    //    }
+                    //});
+
+                    using (var stream = new FileStream(filePath, FileMode.CreateNew))
                     {
-                        using (Image<Rgba32> image = Image.Load(file.OpenReadStream()))
-                        {
-                            if (file.Length > 200 * 1024)
-                            {
-                                int imageWidth = string.IsNullOrEmpty(Request.Form["imageWidth"]) ? 1080 : int.Parse(Request.Form["imageWidth"]);
-                                var imageHeight = image.Height * imageWidth / image.Width;
-                                image.Mutate(x => x.Resize(imageWidth, imageHeight));
-                            }
-                            image.Save(filePath);
-                        }
-                    });
+                        await file.CopyToAsync(stream);
+                    }
+
                     fileResults.Add(filePath.Replace(_hostingEnvironment.WebRootPath, ""));
 
                     //gallery
@@ -311,6 +333,89 @@ namespace Zdy.Blog.Controllers
                 message,
                 fileResults
             });
+        }
+
+        [Route("ValidateCode")]
+        public IActionResult ValidateCode()
+        {
+            int Width = 100;
+            int Height = 36;
+
+            string chkCode = string.Empty;
+
+            //颜色列表，用于验证码、噪线、噪点
+            Color[] color = { Color.Black, Color.Red, Color.Blue, Color.Green, Color.Orange, Color.Brown, Color.DarkBlue };
+
+            //字体列表，用于验证码
+            string[] font = { "Times New Roman", "MS Mincho", "Book Antiqua", "Gungsuh", "PMingLiU", "Impact" };
+
+            //验证码的字符集，去掉了一些容易混淆的字符
+            char[] character ={ '2', '3', '4', '5', '6', '8', '9',
+                                'A', 'B', 'C', 'D', 'E','F', 'G',
+                                'H', 'J', 'K', 'L', 'M', 'N',
+                                'P', 'R', 'S', 'T', 'W', 'X', 'Y' };
+
+            Random rnd = new Random();
+
+            //生成验证码字符串
+            for (int i = 0; i < 4; i++)
+            {
+                chkCode += character[rnd.Next(character.Length)];
+            }
+
+            Bitmap bmp = new Bitmap(Width, Height);
+            Graphics g = Graphics.FromImage(bmp);
+            g.Clear(Color.White);
+
+            //画噪线
+            for (int i = 0; i < 2; i++)
+            {
+                int x1 = rnd.Next(Width);
+                int y1 = rnd.Next(Height);
+                int x2 = rnd.Next(Width);
+                int y2 = rnd.Next(Height);
+                Color clr = color[rnd.Next(color.Length)];
+                g.DrawLine(new Pen(clr), x1, y1, x2, y2);
+            }
+
+            //画验证码字符串
+            for (int i = 0; i < chkCode.Length; i++)
+            {
+                string fnt = font[rnd.Next(font.Length)];
+                Font ft = new Font(fnt, 16, FontStyle.Bold);
+                Color clr = color[rnd.Next(color.Length)];
+                g.DrawString(
+                    chkCode[i].ToString(),
+                    ft,
+                    new SolidBrush(clr),
+                    (float)i * 20 + 20,
+                    (float)6
+                    );
+            }
+
+            //画噪点
+            for (int i = 0; i < 10; i++)
+            {
+                int x = rnd.Next(bmp.Width);
+                int y = rnd.Next(bmp.Height);
+                Color clr = color[rnd.Next(color.Length)];
+                bmp.SetPixel(x, y, clr);
+            }
+            //将验证码图片写入内存流，并将其以"image/Png" 格式输出
+            MemoryStream ms = new MemoryStream();
+
+            try
+            {
+                bmp.Save(ms, ImageFormat.Png);
+                HttpContext.Session.SetString("ValidateCode", chkCode);
+                return File(ms.ToArray(), @"image/png");
+            }
+            finally
+            {
+                //显式释放资源
+                bmp.Dispose();
+                g.Dispose();
+            }
         }
     }
 }

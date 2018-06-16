@@ -205,6 +205,11 @@
     },
     handleCommentForm: function () {
         site.handleForm("comments-form", "html", function (rst) {
+            $("#validate-code").click()
+            if (rst.indexOf("Message:") != -1) {
+                alert(rst.replace("Message:", ""));
+                return;
+            }
             $("#comments-tips").remove();
             var $comments = $("#comments-list")
             $('html,body')
@@ -246,7 +251,7 @@
                 var scrollTop = $(this).scrollTop();
                 var scrollHeight = $(document).height();
                 var windowHeight = $(this).height();
-                if (scrollTop + windowHeight == scrollHeight) {
+                if (scrollTop + windowHeight > scrollHeight - 100) {
                     $(window).unbind("scroll")
                     site.ajaxLoadCommentList(1)
                 }

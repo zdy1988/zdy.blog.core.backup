@@ -50,6 +50,9 @@ namespace Zdy.Blog
 
             services.AddResponseCompression();
 
+            //Add session
+            services.AddSession();
+
             services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
                     .AddCookie(options =>
                     {
@@ -86,6 +89,9 @@ namespace Zdy.Blog
             app.UseStaticFiles();
 
             app.UseResponseCompression();
+
+            //Add session
+            app.UseSession();
 
             app.UseAuthentication();
 

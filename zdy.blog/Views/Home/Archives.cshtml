@@ -7,47 +7,33 @@
     ViewData["Keywords"] = "Archives,所有文章";
 }
 
-@foreach (var post in Model)
-{
-    <article class="post">
-        <header class="post-head">
-            <time datetime="@post.PubDate" class="post-time">
-                @post.PubDate.ToString("MMMM dd，yyyy")
-            </time>
-            <h1 class="post-title">
-                <a href="/post/@post.Slug">
-                    @post.Title
-                </a>
-            </h1>
-        </header>
-        <footer class="post-foot u-cf">
-            @{
-        if (!string.IsNullOrEmpty(post.Categories))
-        {
-            var categories = post.Categories.Split(',');
+<article class="post">
+    <header class="post-head">
+        <h2 class="post-title">
+            Archives
+        </h2>
+        <hr />
+    </header>
 
-            <ul class="post-tag u-fl">
-                @foreach (var category in categories)
-        {
-            <li class="post-tag-item">
-                <a href="/search/@category" class="post-tag-link">
-                    @category
-                </a>
-            </li>
-}
-            </ul>
-}
+    <div class="post-main">
+        <ul class="article-list">
+
+            @foreach (var post in Model)
+            {
+
+                <li>
+                    <a href="/post/@post.Slug">
+                        @post.Title
+                    </a>
+                    <span>@post.PubDate.ToString("MMMM dd，yyyy")</span>
+                </li>
+
             }
 
-            @{
-        int cc = await _repository.CountAsync<Comment>(t => t.IsApproved && t.SourceID == post.ID);
-            }
+        </ul>
+    </div>
 
-            <a href="/post/@post.Slug" class="post-foot-link u-fr"><img class="icon" src="~/images/see.png" />@post.CheckNumber</a>
-            <a href="/post/@post.Slug#post-comments" class="post-foot-link u-fr"><img class="icon" src="~/images/comments.png" />@cc</a>
-        </footer>
-    </article>
-}
+</article>
 
 <div class="front-pager">
     <pager pager-option="@ViewBag.PagerOption"></pager>
