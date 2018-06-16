@@ -219,6 +219,12 @@ namespace Zdy.Blog.Controllers
             return View("Post", post);
         }
 
+        [Route("music")]
+        public IActionResult Music()
+        {
+            return View();
+        }
+
         public IActionResult Error()
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
