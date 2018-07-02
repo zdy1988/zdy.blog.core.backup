@@ -2,7 +2,6 @@
     list-style: none;
     padding: 0px;
     font-size: 90%;
-    text-align:center;
 }
 
 .categories-list-item {
@@ -16,10 +15,10 @@
 
         .categories-list-item .category-list-count:before {
             display: inline;
-            content: " (";
+            content: " [";
         }
 
         .categories-list-item .category-list-count:after {
             display: inline;
-            content: ") ";
+            content: "] ";
         }

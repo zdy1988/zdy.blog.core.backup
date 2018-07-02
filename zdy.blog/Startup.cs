@@ -14,6 +14,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 using WebMarkupMin.AspNetCore2;
 using WebMarkupMin.Core;
+using Zdy.Blog.Filters;
 
 namespace Zdy.Blog
 {
@@ -40,7 +41,9 @@ namespace Zdy.Blog
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddMvc();
+            services.AddMvc(options=> {
+                options.Filters.Add(typeof(UseCDNFilter));
+            });
 
             services.AddDbContext<DataContext>(options => options.UseMySql(Configuration.GetConnectionString("MySql")));
 

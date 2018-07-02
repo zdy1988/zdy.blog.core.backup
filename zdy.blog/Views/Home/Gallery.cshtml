@@ -29,9 +29,10 @@
 
                 @foreach (var photo in photos)
                 {
-                    var url = $"/upload/gallery/{gallery.ID}/{photo.FileName}";
-                    <a class="fancybox" href="@url" data-fancybox="@gallery.ID">
-                        <div class="photos-wrap-item" style="background-image: url(@url)"></div>
+                    var photoUrl = ViewData["CDN"] + $"/upload/gallery/{gallery.ID}/{photo.FileName}";
+                    var thumbnailUrl = photoUrl + ViewData["GalleryThumbnailSettings"];
+                    <a class="fancybox" href="@photoUrl" data-fancybox="@gallery.ID">
+                        <div class="photos-wrap-item" style="background-image: url(@thumbnailUrl)"></div>
                     </a>
                 }
             </div>

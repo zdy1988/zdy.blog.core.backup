@@ -88,11 +88,11 @@
 .front-pager {
     -moz-box-sizing: border-box;
     box-sizing: border-box;
-    margin-top: 30px;
+    margin-top: 60px;
 }
 
     .front-pager .pagination {
-        font-size: 100%;
+        font-size: 120%;
         text-align: center;
     }
 

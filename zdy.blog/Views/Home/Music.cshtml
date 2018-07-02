@@ -2,32 +2,30 @@
 @{
     ViewData["Title"] = "Music";
 }
-
 <article class="post">
-    <header class="post-head">
-        <h2 class="post-title">
-            Music
-        </h2>
-        <hr />
-    </header>
     <div class="post-main">
         <p style="margin-bottom: -10px;">A list of music I often listen to.</p>
-    </div> 
+    </div>
     <div class="post-main" id="main" style="text-align:center;">
-
+        <iframe id="player" frameBorder="no" marginWidth="0" marginheight="0" width="100" height="600" style="margin-left:-8px" src="//music.163.com/outchain/player?type=0&id=2268519461&auto=1&height=580"></iframe>
     </div>
 </article>
 
-<script type="text/javascript">
-    var main = document.getElementById("main")
-    var iframe = document.createElement("iframe")
-    iframe.frameBorder = "no"
-    iframe.marginWidth = "0"
-    iframe.marginHeight = "0"
-    iframe.width = main.clientWidth + 16
-    iframe.height = 600
-    iframe.style.marginLeft = "-8px"
-    iframe.src = "//music.163.com/outchain/player?type=0&id=2268519461&auto=1&height=" + (600 - 20)
-    main.appendChild(iframe)
-   
-</script>
+@section Scripts{
+    <script type="text/javascript">
+        var main = document.getElementById("main")
+
+        function resizePlayer() { 
+            $("#player").width(main.clientWidth + 16)
+        }
+
+        $(document).ready(function () { 
+            resizePlayer()
+
+            $(window).resize(function () {
+                resizePlayer()
+            });
+        })
+
+    </script>
+}
