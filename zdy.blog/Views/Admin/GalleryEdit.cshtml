@@ -26,7 +26,7 @@
             <ul class="photos-list">
                 @foreach (var photo in photos.OrderByDescending(t => t.Sort).ThenByDescending(t => t.PubDate))
                 {
-                    var photoUrl = $"/upload/gallery/{Model.ID}/{photo.FileName}";
+                    var photoUrl = ViewData["CDN"] + $"/upload/gallery/{Model.ID}/{photo.FileName}";
                     <li class="photos-list-item">
                         <div class="photo-form-container">
                             <div class="u-fl">

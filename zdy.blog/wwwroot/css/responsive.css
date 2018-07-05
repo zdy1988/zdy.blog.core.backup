@@ -199,4 +199,8 @@
         .photo-form-container .u-fl form {
             margin: 1.6em 0;
         }
+
+    .article-list li span {
+        display:block;
+    }
 }

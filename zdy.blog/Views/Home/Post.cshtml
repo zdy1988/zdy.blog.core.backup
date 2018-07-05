@@ -11,7 +11,7 @@
 <article class="post" id="@post.ID">
     <header class="post-head">
         <time datetime="@post.PubDate" class="post-time">
-            @post.PubDate.ToString("MMMM dd，yyyy") 
+            @post.PubDate.ToString("MMMM dd，yyyy")
         </time>
         <h1 class="post-title">
             <a href="/post/@post.Slug">
@@ -31,27 +31,28 @@
         <markdown markdown-option="@markdownOption"></markdown>
 
     </div>
+
     <footer class="post-foot u-cf">
         @{
-        if (!string.IsNullOrEmpty(post.Categories))
-        {
-            var categories = post.Categories.Split(',');
-
-            <ul class="post-tag u-fl">
-                @foreach (var category in categories)
+            if (!string.IsNullOrEmpty(post.Categories))
             {
-                <li class="post-tag-item">
-                    <a href="/search/@category" class="post-tag-link">
-                        @category
-                    </a>
-                </li>
-        }
-            </ul>
-    }
+                var categories = post.Categories.Split(',');
+
+                <ul class="post-tag u-fl">
+                    @foreach (var category in categories)
+                    {
+                        <li class="post-tag-item">
+                            <a href="/search/@category" class="post-tag-link">
+                                @category
+                            </a>
+                        </li>
+                    }
+                </ul>
+            }
         }
 
         @{
-        int cc = await _repository.CountAsync<Comment>(t => t.IsApproved && t.SourceID == post.ID);
+            int cc = await _repository.CountAsync<Comment>(t => t.IsApproved && t.SourceID == post.ID);
         }
 
         <a href="/post/@post.Slug" class="post-foot-link u-fr"><img class="icon" src="~/images/see.png" />@post.CheckNumber</a>

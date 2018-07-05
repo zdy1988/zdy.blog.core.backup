@@ -39,6 +39,7 @@ namespace Zdy.Blog.Controllers
         }
 
         [Route("/{pageIndex:int?}")]
+        [ResponseCache(Location = ResponseCacheLocation.Any, Duration = 60 * 60 * 10)]
         public async Task<IActionResult> Index(int pageIndex = 1)
         {
             var posts = await _repository.FindAsync<Post, DateTime>(t => t.IsPublished, t => t.PubDate, int.Parse(_config["blog:pageSize"]), pageIndex, out int count);
@@ -57,6 +58,7 @@ namespace Zdy.Blog.Controllers
         }
 
         [Route("/post/{slug?}")]
+        [ResponseCache(Location = ResponseCacheLocation.Any, Duration = 60 * 60 * 10)]
         public async Task<IActionResult> Post(string slug)
         {
             var post = await _repository.GetAsync<Post>(t => t.Slug == slug && t.IsPublished);
@@ -93,8 +95,9 @@ namespace Zdy.Blog.Controllers
             return View(posts);
         }
 
-        [Route("categories")]
-        public async Task<IActionResult> Categories()
+        [Route("labels")]
+        [ResponseCache(Location = ResponseCacheLocation.Any, Duration = 60 * 60 * 10)]
+        public async Task<IActionResult> Labels()
         {
             var query = _repository
                         .All<Category>()
@@ -177,6 +180,7 @@ namespace Zdy.Blog.Controllers
         }
 
         [Route("/photo/{slug?}")]
+        [ResponseCache(Location = ResponseCacheLocation.Any, Duration = 60 * 60 * 10)]
         public async Task<IActionResult> Photo(string slug)
         {
             var gallery = await _repository.GetAsync<Gallery>(t => t.Slug == slug && t.IsPublished);
@@ -194,6 +198,7 @@ namespace Zdy.Blog.Controllers
         }
 
         [Route("iland")]
+        [ResponseCache(Location = ResponseCacheLocation.Any, Duration = 60 * 60 * 10)]
         public async Task<IActionResult> ILand()
         {
             var post = await _repository.GetAsync<Post>(t => t.Slug == "ILand" && t.IsPublished);
@@ -207,6 +212,7 @@ namespace Zdy.Blog.Controllers
         }
 
         [Route("about")]
+        [ResponseCache(Location = ResponseCacheLocation.Any, Duration = 60 * 60 * 10)]
         public async Task<IActionResult> About()
         {
             var post = await _repository.GetAsync<Post>(t => t.Slug == "About" && t.IsPublished);
@@ -220,6 +226,7 @@ namespace Zdy.Blog.Controllers
         }
 
         [Route("music")]
+        [ResponseCache(Location = ResponseCacheLocation.Any, Duration = 60 * 60 * 10)]
         public IActionResult Music()
         {
             return View();

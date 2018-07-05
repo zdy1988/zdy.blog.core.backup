@@ -27,14 +27,14 @@
             }
             @foreach (var photo in photos.OrderByDescending(t => t.Sort).ThenByDescending(t => t.PubDate))
             {
-                var photoUrl = $"/upload/gallery/{gallery.ID}/{photo.FileName}";
+                var photoUrl = ViewData["CDN"] + $"/upload/gallery/{gallery.ID}/{photo.FileName}";
                 <li class="photos-list-item">
                     <a href="@photoUrl" class="fancybox" data-fancybox="@gallery.ID">
                         <img src="@photoUrl">
                     </a>
                     @if (!string.IsNullOrEmpty(@photo.Title))
                     {
-                        <p>@photo.Title</p>
+                        <p style="margin-top: 20px;">@photo.Title</p>
                     }
                 </li>
             }
